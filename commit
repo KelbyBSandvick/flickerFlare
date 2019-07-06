@@ -1,0 +1,50 @@
+int sensorPin = A5;
+int sensorVal;
+int led1 = 9;
+int led2 = 10;
+int led3 = 11;
+
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+  
+  pinMode(sensorPin, INPUT_PULLUP);
+  Serial.begin(9600);
+
+}
+
+void loop() {
+
+  sensorVal = analogRead(sensorPin); //read the sensor data coming in
+  int newSensorVal = map(sensorVal,400,275,255,0); //create a new variable to store the mapped values
+  Serial.println(newSensorVal);         //print the sensor values to the serial monitor
+  analogWrite(led1, newSensorVal);    //write the values of the sensor to the LED
+  analogWrite(led2, newSensorVal);    //write the values of the sensor to the LED
+  analogWrite(led3, newSensorVal);    //write the values of the sensor to the LED
+
+  if(newSensorVal > 100){
+    analogWrite(led1, 10);
+    analogWrite(led2, 10);
+    analogWrite(led3, 10);
+    delay(100);
+    analogWrite(led1, 0);
+    analogWrite(led2, 10);
+    analogWrite(led3, 10);
+    delay(100);
+  }
+  else{
+    analogWrite(led1, 255);
+    analogWrite(led2, 10);
+    analogWrite(led3, 10);
+    delay(100);
+    analogWrite(led1, 0);
+    analogWrite(led2, 10);
+    analogWrite(led3, 10);
+    delay(100);
+  }
+
+
+}
